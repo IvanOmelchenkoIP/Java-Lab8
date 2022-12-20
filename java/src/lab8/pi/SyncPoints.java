@@ -1,14 +1,14 @@
 package lab8.pi;
 
 class SyncPoints {
-	private int n = 0;
-	
+	private int syncPoints = 0;
+
 	public synchronized void add(int points) {
-		n += points;
+		syncPoints += points;
 		return;
 	}
-	
+
 	public synchronized int getPoints() {
-		return n;
+		return syncPoints;
 	}
 }

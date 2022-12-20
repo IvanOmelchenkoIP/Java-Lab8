@@ -6,16 +6,15 @@ public class ParallelMonteCarloPI {
 	private final int ITERATIONS = 1000000;
 	
 	public double count(int threads) throws InterruptedException {
+		int threadIterations = Math.round(ITERATIONS / threads);
 		SyncPoints syncPoints = new SyncPoints();
-		int iterations = ITERATIONS / threads;
-		ThreadPointCounter mc = new ThreadPointCounter(Math.round(ITERATIONS / threads), syncPoints);
+		ThreadPointCounter counter = new ThreadPointCounter(threadIterations, syncPoints);
 		for (int i = 0; i < threads; i++) {
-			Thread thread = new Thread(mc);
+			Thread thread = new Thread(counter);
 			thread.start();
 			thread.join();
 		}
-		double pi = (syncPoints.getPoints() / Double.valueOf(ITERATIONS)) * 4;
-		return pi;
+		return (syncPoints.getPoints() / Double.valueOf(ITERATIONS)) * 4;
 	}
 	
 	public int iterations() {
