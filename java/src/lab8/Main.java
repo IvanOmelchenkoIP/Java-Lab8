@@ -1,6 +1,5 @@
 package lab8;
 
-import lab8.pi.MonteCarloPI;
 import lab8.pi.MonteCarloPIManager;
 import scanner.InputScanner;
 
@@ -13,20 +12,18 @@ public class Main {
 
 		MonteCarloPIManager mc = new MonteCarloPIManager();
 		long start = System.currentTimeMillis();
+		double pi;
 		try {
-		mc.count(threads);
+			pi = mc.count(threads);
 		} catch(Exception ex) {
 			System.out.print(ex);
+			return;
 		}
 		long ms = System.currentTimeMillis() - start;
 		
-		
-		
-		
-		
-		//System.out.println("PI:" + value);
+		System.out.println("PI:" + pi);
 		System.out.println("THREADS: " + threads);
-		System.out.println("ITERATIONS: " + 1000);
+		System.out.println("ITERATIONS: " + mc.iterations());
 		System.out.println("TIME: " + ms + "ms");
 	}
 

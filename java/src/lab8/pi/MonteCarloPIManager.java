@@ -5,7 +5,7 @@ public class MonteCarloPIManager {
 
 	private final int ITERATIONS = 1000000;
 	
-	public void count(int threads) throws InterruptedException {
+	public double count(int threads) throws InterruptedException {
 		PIPoints pPoints = new PIPoints();
 		int iterations = ITERATIONS / threads;
 		MonteCarloParallel mc = new MonteCarloParallel(Math.round(ITERATIONS / threads), pPoints);
@@ -15,6 +15,10 @@ public class MonteCarloPIManager {
 			thread.join();
 		}
 		double pi = (pPoints.getPoints() / Double.valueOf(ITERATIONS)) * 4;
-		System.out.println(pi);
+		return pi;
+	}
+	
+	public int iterations() {
+		return ITERATIONS;
 	}
 }
