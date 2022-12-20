@@ -1,7 +1,7 @@
 package lab8;
 
 import lab8.pi.MonteCarloPI;
-import lab8.pi.MonteCarloParallel;
+import lab8.pi.MonteCarloPIManager;
 import scanner.InputScanner;
 
 public class Main {
@@ -11,18 +11,14 @@ public class Main {
 		int threads = Integer.parseInt(scanner.scanInput("Input amount of threads: "));
 		scanner.close();
 
-		MonteCarloPI pi = new MonteCarloPI();
+		MonteCarloPIManager mc = new MonteCarloPIManager();
 		long start = System.currentTimeMillis();
-		//double value = pi.count();
+		mc.count(threads);
 		long ms = System.currentTimeMillis() - start;
 		
-		MonteCarloParallel mc = new MonteCarloParallel();
 		
-		for (int i = 0; i < threads; i++) {
-			Thread thread = new Thread(mc);
-			thread.start();
-			System.out.println(mc.getPi());
-		}
+		
+		
 		
 		//System.out.println("PI:" + value);
 		System.out.println("THREADS: " + threads);
