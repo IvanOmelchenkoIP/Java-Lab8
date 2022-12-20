@@ -10,20 +10,20 @@ public class Main {
 		int threads = Integer.parseInt(scanner.scanInput("Input amount of threads: "));
 		scanner.close();
 
-		ParallelMonteCarloPI mc = new ParallelMonteCarloPI();
+		ParallelMonteCarloPI parallelPI = new ParallelMonteCarloPI();
 		long start = System.currentTimeMillis();
 		double pi;
 		try {
-			pi = mc.count(threads);
-		} catch(Exception ex) {
-			System.out.print(ex);
+			pi = parallelPI.count(threads);
+		} catch(Exception exception) {
+			System.out.print(exception);
 			return;
 		}
 		long ms = System.currentTimeMillis() - start;
 		
-		System.out.println("PI:" + pi);
+		System.out.println("PI: " + pi);
 		System.out.println("THREADS: " + threads);
-		System.out.println("ITERATIONS: " + mc.iterations());
+		System.out.println("ITERATIONS: " + parallelPI.iterations());
 		System.out.println("TIME: " + ms + "ms");
 	}
 
