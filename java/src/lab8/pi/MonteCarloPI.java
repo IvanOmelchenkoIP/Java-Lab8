@@ -1,10 +1,27 @@
 package lab8.pi;
 
 public class MonteCarloPI {
-	
+
+	private final double CENTER_X = 0;
+	private final double CENTER_Y = 0;
+
+	private final int CENTER_DISTANCE = 1;
 	private final int ITERATIONS = 1000;
-	
+
 	public double count() {
-		throw new Error("Not implemented!");
+
+		int points = 0;
+
+		for (int i = 0; i < ITERATIONS; i++) {
+			double x = Math.random();
+			double y = Math.random();
+			double distance = Math.pow((x - CENTER_X), 2) + Math.pow((y - CENTER_Y), 2);
+			System.out.println(distance);
+			if (distance < Double.valueOf(CENTER_DISTANCE)) {
+				points += 1;
+			}
+		}
+		System.out.println(points);
+		return (points / Double.valueOf(ITERATIONS)) * 4;
 	}
 }

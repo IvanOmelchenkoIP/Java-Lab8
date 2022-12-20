@@ -1,9 +1,12 @@
 package lab8;
 
+import lab8.pi.MonteCarloPI;
+
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		MonteCarloPI pi = new MonteCarloPI();
+		System.out.println(pi.count());
 
 	}
 
