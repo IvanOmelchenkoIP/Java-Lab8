@@ -1,20 +1,20 @@
 package lab8.pi;
 
 
-public class MonteCarloPIManager {
+public class ParallelMonteCarloPI {
 
 	private final int ITERATIONS = 1000000;
 	
 	public double count(int threads) throws InterruptedException {
-		PIPoints pPoints = new PIPoints();
+		SyncPoints syncPoints = new SyncPoints();
 		int iterations = ITERATIONS / threads;
-		MonteCarloParallel mc = new MonteCarloParallel(Math.round(ITERATIONS / threads), pPoints);
+		ThreadPointCounter mc = new ThreadPointCounter(Math.round(ITERATIONS / threads), syncPoints);
 		for (int i = 0; i < threads; i++) {
 			Thread thread = new Thread(mc);
 			thread.start();
 			thread.join();
 		}
-		double pi = (pPoints.getPoints() / Double.valueOf(ITERATIONS)) * 4;
+		double pi = (syncPoints.getPoints() / Double.valueOf(ITERATIONS)) * 4;
 		return pi;
 	}
 	

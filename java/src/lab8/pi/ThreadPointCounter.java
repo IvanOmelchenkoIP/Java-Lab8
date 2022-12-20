@@ -1,18 +1,17 @@
 package lab8.pi;
 
-public class MonteCarloParallel implements Runnable{
+import java.util.Random;
 
-	private final double CENTER_X = 0;
-	private final double CENTER_Y = 0;
-
+public class ThreadPointCounter implements Runnable{
+	
 	private final int CENTER_DISTANCE = 1;
+	
 	private final int iterations;
+	private final SyncPoints syncPoints;
 	
-	PIPoints pPoints;
-	
-	public MonteCarloParallel(int iterations, PIPoints pPoints) {
+	public ThreadPointCounter(int iterations, SyncPoints pPoints) {
 		this.iterations = iterations;
-		this.pPoints = pPoints;
+		this.syncPoints = pPoints;
 	}
 	
 	@Override
@@ -21,14 +20,11 @@ public class MonteCarloParallel implements Runnable{
 		for (int i = 0; i < iterations; i++) {
 			double x = Math.random();
 			double y = Math.random();
-			double distance = Math.pow((x - CENTER_X), 2) + Math.pow((y - CENTER_Y), 2);
-			if (distance < Double.valueOf(CENTER_DISTANCE)) {
-				points += 1;
+			if ((x*x + y*y) < CENTER_DISTANCE) {
+				points += 2;
 			}
 		}
-		double pi = (points / Double.valueOf(iterations)) * 4;
-		pPoints.add(points);
-		System.out.println(pPoints.getPoints());
+		syncPoints.add(points);
 	}
 	
 }
