@@ -11,8 +11,14 @@ public class Main {
 		scanner.close();
 
 		MonteCarloPI pi = new MonteCarloPI();
-		System.out.println(pi.count());
-
+		long start = System.currentTimeMillis();
+		double value = pi.count();
+		long ms = System.currentTimeMillis() - start;
+		
+		System.out.println("PI:" + value);
+		System.out.println("THREADS: " + threads);
+		System.out.println("ITERATIONS: " + 1000);
+		System.out.println("TIME: " + ms + "ms");
 	}
 
 }
