@@ -13,7 +13,11 @@ public class Main {
 
 		MonteCarloPIManager mc = new MonteCarloPIManager();
 		long start = System.currentTimeMillis();
+		try {
 		mc.count(threads);
+		} catch(Exception ex) {
+			System.out.print(ex);
+		}
 		long ms = System.currentTimeMillis() - start;
 		
 		

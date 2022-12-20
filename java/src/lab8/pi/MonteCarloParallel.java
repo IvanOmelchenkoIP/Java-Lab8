@@ -8,9 +8,11 @@ public class MonteCarloParallel implements Runnable{
 	private final int CENTER_DISTANCE = 1;
 	private final int iterations;
 	
-	public MonteCarloParallel(int iterations) {
+	PIPoints pPoints;
+	
+	public MonteCarloParallel(int iterations, PIPoints pPoints) {
 		this.iterations = iterations;
-		
+		this.pPoints = pPoints;
 	}
 	
 	@Override
@@ -25,6 +27,8 @@ public class MonteCarloParallel implements Runnable{
 			}
 		}
 		double pi = (points / Double.valueOf(iterations)) * 4;
+		pPoints.add(points);
+		System.out.println(pPoints.getPoints());
 	}
 	
 }
