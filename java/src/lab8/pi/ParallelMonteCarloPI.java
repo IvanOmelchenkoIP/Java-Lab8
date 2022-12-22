@@ -3,7 +3,7 @@ package lab8.pi;
 
 public class ParallelMonteCarloPI {
 
-	private final int ITERATIONS = 1000000;
+	private final int ITERATIONS = 100000000;
 	
 	public double count(int threads) throws InterruptedException {
 		int threadIterations = Math.round(ITERATIONS / threads);
