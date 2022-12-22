@@ -2,7 +2,7 @@ package lab8.pi;
 
 import java.util.concurrent.CountDownLatch;
 
-public class ParallelMonteCarloPI {
+public class ParallelMonteCarloPIModel {
 	private final int ITERATIONS = 10000000;
 
 	private final int CENTER_DISTANCE = 1;
@@ -12,7 +12,7 @@ public class ParallelMonteCarloPI {
 
 	private final CountDownLatch countdown;
 
-	public ParallelMonteCarloPI(int iterations, SyncPoints pPoints, CountDownLatch countdown) {
+	public ParallelMonteCarloPIModel(int iterations, SyncPoints pPoints, CountDownLatch countdown) {
 		this.iterations = iterations;
 		this.syncPoints = pPoints;
 		this.countdown = countdown;
