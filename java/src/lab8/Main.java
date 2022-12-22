@@ -1,6 +1,6 @@
 package lab8;
 
-import lab8.pi.ParallelMonteCarloPI;
+import lab8.pi.MonteCarloPIManager;
 import scanner.InputScanner;
 
 public class Main {
@@ -10,7 +10,7 @@ public class Main {
 		int threads = Integer.parseInt(scanner.scanInput("Input amount of threads: "));
 		scanner.close();
 
-		ParallelMonteCarloPI parallelPI = new ParallelMonteCarloPI();
+		MonteCarloPIManager parallelPI = new MonteCarloPIManager();
 		long start = System.currentTimeMillis();
 		double pi;
 		try {
