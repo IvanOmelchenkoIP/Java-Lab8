@@ -16,14 +16,20 @@ public class MonteCarloPIController {
 	
 	public void count(int threads) {
 		CountDownLatch countdown = new CountDownLatch(threads);
-		int threadIterations = Math.round(ITERATIONS / threads);
+		int threadIterations = (ITERATIONS / threads);
 		SyncPoints syncPoints = new SyncPoints();
-		ParallelMonteCarloPIModel counter = new ParallelMonteCarloPIModel(threadIterations, syncPoints, countdown);
+		model.setParameters(ITERATIONS, threads, syncPoints, countdown);
 		for (int i = 0; i < threads; i++) {
-			new Thread(counter.newPointThread()).start();
+			new Thread(model.newPointThread()).start();
 		}
-		double pi = counter.getPI();
-		view.showPI(pi, threads, ITERATIONS, threadIterations)
+		double pi;
+		try {
+			pi = model.getPI();
+		} catch (InterruptedException exception) {
+			view.showException(exception);
+			return;
+		}
+		view.showPI(pi, threads, ITERATIONS, threadIterations);
 	}
 	
 	public int iterations() {

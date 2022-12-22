@@ -3,19 +3,23 @@ package lab8.pi;
 import java.util.concurrent.CountDownLatch;
 
 public class ParallelMonteCarloPIModel {
-	private final int ITERATIONS = 10000000;
 
 	private final int CENTER_DISTANCE = 1;
 
-	private final int iterations;
-	private final SyncPoints syncPoints;
+	private boolean canRun = false;
+	
+	private int iterations;
+	private int threadIterations;
+	private SyncPoints syncPoints;
+	private CountDownLatch countdown;
 
-	private final CountDownLatch countdown;
-
-	public ParallelMonteCarloPIModel(int iterations, SyncPoints pPoints, CountDownLatch countdown) {
+	public void setParameters(int iterations, int threads, SyncPoints syncPoints, CountDownLatch barrier) {
+		if (this.canRun) return;
+		this.canRun = true;
 		this.iterations = iterations;
-		this.syncPoints = pPoints;
-		this.countdown = countdown;
+		this.threadIterations = (int) Math.ceil(iterations / threads);
+		this.syncPoints = syncPoints;
+		this.countdown = barrier;
 	}
 
 	public Runnable newPointThread() {
@@ -24,7 +28,7 @@ public class ParallelMonteCarloPIModel {
 			public void run() {
 				int points = 0;
 				double distance = Double.valueOf(CENTER_DISTANCE);
-				for (int i = 0; i < iterations; i++) {
+				for (int i = 0; i < threadIterations; i++) {
 					double x = Math.random();
 					double y = Math.random();
 					if (points % 100000 == 0)
@@ -38,12 +42,12 @@ public class ParallelMonteCarloPIModel {
 		};
 	}
 
-	public double getPI() {
+	public double getPI() throws InterruptedException {
 		try {
 			countdown.await();
-			return (syncPoints.getPoints() / Double.valueOf(ITERATIONS)) * 4;
+			return (syncPoints.getPoints() / Double.valueOf(iterations)) * 4;
 		} catch (InterruptedException exception) {
-			return 0;
+			throw exception;
 		}
 	}
 }

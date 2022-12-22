@@ -8,4 +8,8 @@ public class MonteCarloPIView {
 		System.out.println("ITERATIONS: " + iterations);
 		System.out.println("TIME: " + ms + "ms");
 	}
+	
+	public void showException(InterruptedException exception) {
+		System.out.println("An Error Occurred!\n" + exception.getMessage());
+	}
 }
