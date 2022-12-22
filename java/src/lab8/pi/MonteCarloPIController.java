@@ -17,8 +17,7 @@ public class MonteCarloPIController {
 	public void count(int threads) {
 		CountDownLatch countdown = new CountDownLatch(threads);
 		int threadIterations = (ITERATIONS / threads);
-		SyncPoints syncPoints = new SyncPoints();
-		model.setParameters(ITERATIONS, threads, syncPoints, countdown);
+		model.setParameters(ITERATIONS, threads, countdown);
 		for (int i = 0; i < threads; i++) {
 			new Thread(model.newPointThread()).start();
 		}
