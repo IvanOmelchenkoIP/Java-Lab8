@@ -2,14 +2,14 @@ package lab8.pi;
 
 import java.util.concurrent.CountDownLatch;
 
-public class MonteCarloPIController {
+public class ParallelMonteCarloPIController {
 
 	private final int ITERATIONS = 10000000;
 	
 	private ParallelMonteCarloPIModel model;
-	private MonteCarloPIView view;
+	private ParallelMonteCarloPIView view;
 	
-	public MonteCarloPIController(ParallelMonteCarloPIModel model, MonteCarloPIView view) {
+	public ParallelMonteCarloPIController(ParallelMonteCarloPIModel model, ParallelMonteCarloPIView view) {
 		this.model = model;
 		this.view = view;
 	}

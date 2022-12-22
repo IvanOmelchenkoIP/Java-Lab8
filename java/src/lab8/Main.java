@@ -11,8 +11,8 @@ public class Main {
 		scanner.close();
 
 		ParallelMonteCarloPIModel model = new ParallelMonteCarloPIModel();
-		MonteCarloPIView view = new MonteCarloPIView();
-		MonteCarloPIController parallelPI = new MonteCarloPIController(model, view);
+		ParallelMonteCarloPIView view = new ParallelMonteCarloPIView();
+		ParallelMonteCarloPIController parallelPI = new ParallelMonteCarloPIController(model, view);
 		
 		parallelPI.count(threads);
 		//long start = System.currentTimeMillis();

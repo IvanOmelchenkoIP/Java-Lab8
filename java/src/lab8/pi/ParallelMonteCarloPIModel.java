@@ -13,7 +13,6 @@ public class ParallelMonteCarloPIModel {
 	
 	private int iterations;
 	private int threadIterations;
-	private SyncPoints syncPoints;
 	private CountDownLatch countdown;
 
 	public void setParameters(int iterations, int threads, CountDownLatch barrier) {
