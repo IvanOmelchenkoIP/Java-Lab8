@@ -1,12 +1,12 @@
-package scanner;
+package lab8.scanner;
 
 import java.util.Scanner;
 
-public class InputScanner {
+public class MessageInputScanner {
 
 	private Scanner scanner;
 
-	public InputScanner() {
+	public MessageInputScanner() {
 		scanner = new Scanner(System.in);
 	}
 

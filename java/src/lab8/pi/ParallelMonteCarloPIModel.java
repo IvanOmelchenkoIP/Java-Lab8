@@ -22,21 +22,25 @@ public class ParallelMonteCarloPIModel {
 		this.threadIterations = (int) Math.ceil(iterations / threads);
 		this.countdown = barrier;
 	}
-	
+		
 	public Runnable newPointThread() {
 		return new Runnable() {
 			@Override
 			public void run() {
-				//double distance = Double.valueOf(CENTER_DISTANCE);
+				int threadPts = 0;
 				for (int i = 0; i < threadIterations; i++) {
 					double x = Math.random();
 					double y = Math.random();
 					/*if (points.intValue() % 100000 == 0)
 						System.out.println(Thread.currentThread().getName());*/
 					if (x * x + y * y < CENTER_DISTANCE) {
-						points.addAndGet(1);
+						++threadPts;
+
+						//points.addAndGet(1);
 					}
 				}
+				points.addAndGet(threadPts);
+				System.out.println(threadPts);
 				countdown.countDown();
 			}
 		};

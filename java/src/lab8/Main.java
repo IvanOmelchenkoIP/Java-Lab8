@@ -1,12 +1,13 @@
 package lab8;
 
 import lab8.pi.*;
-import scanner.InputScanner;
+import lab8.scanner.MessageInputScanner;
+import lab8.timer.TimeCounter;
 
 public class Main {
 
 	public static void main(String[] args) {
-		InputScanner scanner = new InputScanner();
+		MessageInputScanner scanner = new MessageInputScanner();
 		int threads = Integer.parseInt(scanner.scanInput("Input amount of threads: "));
 		scanner.close();
 
@@ -14,9 +15,8 @@ public class Main {
 		ParallelMonteCarloPIView view = new ParallelMonteCarloPIView();
 		ParallelMonteCarloPIController parallelPI = new ParallelMonteCarloPIController(model, view);
 		
-		parallelPI.count(threads);
-		//long start = System.currentTimeMillis();
-		
-		//long ms = System.currentTimeMillis() - start;
+		TimeCounter<Integer> timer = new TimeCounter<Integer>();
+		long ms = timer.countTime(threadCount -> parallelPI.count(threadCount), threads);
+		System.out.println("TIME: " + ms + "ms");
 	}
 }

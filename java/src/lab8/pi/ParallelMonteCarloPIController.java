@@ -1,6 +1,8 @@
 package lab8.pi;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ParallelMonteCarloPIController {
 
@@ -16,22 +18,15 @@ public class ParallelMonteCarloPIController {
 	
 	public void count(int threads) {
 		CountDownLatch countdown = new CountDownLatch(threads);
-		int threadIterations = (ITERATIONS / threads);
 		model.setParameters(ITERATIONS, threads, countdown);
 		for (int i = 0; i < threads; i++) {
 			new Thread(model.newPointThread()).start();
 		}
-		double pi;
 		try {
-			pi = model.getPI();
+			double pi = model.getPI();
+			view.showPI(pi, threads, ITERATIONS);
 		} catch (InterruptedException exception) {
 			view.showException(exception);
-			return;
 		}
-		view.showPI(pi, threads, ITERATIONS, threadIterations);
-	}
-	
-	public int iterations() {
-		return ITERATIONS;
 	}
 }
