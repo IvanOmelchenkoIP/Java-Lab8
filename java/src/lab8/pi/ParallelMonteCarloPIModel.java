@@ -7,48 +7,40 @@ public class ParallelMonteCarloPIModel {
 
 	private final int CENTER_DISTANCE = 1;
 
-	public AtomicInteger points = new AtomicInteger(0);
-	
-	private boolean canRun = false;
-	
+	private AtomicInteger points = new AtomicInteger(0);
+		
 	private int iterations;
 	private int threadIterations;
-	private CountDownLatch countdown;
+	private CountDownLatch barrier;
 
-	public void setParameters(int iterations, int threads, CountDownLatch barrier) {
-		if (this.canRun) return;
-		this.canRun = true;
+	public void setParameters(int iterations, int threads) {
 		this.iterations = iterations;
 		this.threadIterations = (int) Math.ceil(iterations / threads);
-		this.countdown = barrier;
+		this.barrier = new CountDownLatch(threads);
 	}
 		
 	public Runnable newPointThread() {
 		return new Runnable() {
+			
 			@Override
 			public void run() {
 				int threadPts = 0;
 				for (int i = 0; i < threadIterations; i++) {
 					double x = Math.random();
 					double y = Math.random();
-					/*if (points.intValue() % 100000 == 0)
-						System.out.println(Thread.currentThread().getName());*/
 					if (x * x + y * y < CENTER_DISTANCE) {
 						++threadPts;
-
-						//points.addAndGet(1);
 					}
 				}
 				points.addAndGet(threadPts);
-				System.out.println(threadPts);
-				countdown.countDown();
+				barrier.countDown();
 			}
 		};
 	}
 
 	public double getPI() throws InterruptedException {
 		try {
-			countdown.await();
+			barrier.await();
 			return (points.intValue() / Double.valueOf(iterations)) * 4;
 		} catch (InterruptedException exception) {
 			throw exception;
