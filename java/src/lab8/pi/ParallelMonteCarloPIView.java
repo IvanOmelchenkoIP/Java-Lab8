@@ -8,7 +8,7 @@ public class ParallelMonteCarloPIView {
 		System.out.println("ITERATIONS: " + iterations);
 	}
 	
-	public void showException(InterruptedException exception) {
+	public void showException(Exception exception) {
 		System.out.println("An Error Occurred!\n" + exception.getMessage());
 	}
 }

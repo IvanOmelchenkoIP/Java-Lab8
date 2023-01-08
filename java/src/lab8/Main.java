@@ -6,7 +6,7 @@ import lab8.timer.TimeCounter;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) {	
 		MessageInputScanner scanner = new MessageInputScanner();
 		int threads = Integer.parseInt(scanner.scanInput("Input amount of threads: "));
 		scanner.close();

@@ -13,12 +13,8 @@ public class ParallelMonteCarloPIController {
 	}
 	
 	public void count(int threads) {
-		model.setParameters(ITERATIONS, threads);
-		for (int i = 0; i < threads; i++) {
-			new Thread(model.newPointThread()).start();
-		}
 		try {
-			double pi = model.getPI();
+			double pi = model.countPI(ITERATIONS, threads);
 			view.showPI(pi, threads, ITERATIONS);
 		} catch (InterruptedException exception) {
 			view.showException(exception);

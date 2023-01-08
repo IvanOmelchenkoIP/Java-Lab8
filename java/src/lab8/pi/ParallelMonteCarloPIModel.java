@@ -8,18 +8,9 @@ public class ParallelMonteCarloPIModel {
 	private final int CENTER_DISTANCE = 1;
 
 	private AtomicInteger points = new AtomicInteger(0);
-		
-	private int iterations;
-	private int threadIterations;
 	private CountDownLatch barrier;
-
-	public void setParameters(int iterations, int threads) {
-		this.iterations = iterations;
-		this.threadIterations = (int) Math.ceil(iterations / threads);
-		this.barrier = new CountDownLatch(threads);
-	}
-		
-	public Runnable newPointThread() {
+			
+	private Runnable newPointThread(int threadIterations) {
 		return new Runnable() {
 			
 			@Override
@@ -34,16 +25,20 @@ public class ParallelMonteCarloPIModel {
 				}
 				points.addAndGet(threadPts);
 				barrier.countDown();
+				
 			}
 		};
 	}
 
-	public double getPI() throws InterruptedException {
-		try {
-			barrier.await();
-			return (points.intValue() / Double.valueOf(iterations)) * 4;
-		} catch (InterruptedException exception) {
-			throw exception;
+	public double countPI(int iterations, int threads) throws InterruptedException {
+		barrier = new CountDownLatch(threads);
+		
+		int threadIterations = (int) Math.ceil(iterations / threads);
+		for (int i = 0; i < threads; i++) {
+			new Thread(newPointThread(threadIterations)).start();
 		}
+
+		barrier.await();
+		return (points.intValue() / Double.valueOf(iterations)) * 4;
 	}
 }
