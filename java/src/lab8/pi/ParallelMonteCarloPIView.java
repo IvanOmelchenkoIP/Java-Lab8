@@ -9,6 +9,6 @@ public class ParallelMonteCarloPIView {
 	}
 	
 	public void showException(Exception exception) {
-		System.out.println("An Error Occurred!\n" + exception.getMessage());
+		System.out.println("EXCEPTION: " + exception.getMessage());
 	}
 }

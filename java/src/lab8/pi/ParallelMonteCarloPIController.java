@@ -1,5 +1,7 @@
 package lab8.pi;
 
+import lab8.exceptions.ThreadAmountException;
+
 public class ParallelMonteCarloPIController {
 
 	private final int ITERATIONS = 1000000000;
@@ -16,7 +18,7 @@ public class ParallelMonteCarloPIController {
 		try {
 			double pi = model.countPI(ITERATIONS, threads);
 			view.showPI(pi, threads, ITERATIONS);
-		} catch (InterruptedException exception) {
+		} catch (InterruptedException | ThreadAmountException exception) {
 			view.showException(exception);
 		}
 	}

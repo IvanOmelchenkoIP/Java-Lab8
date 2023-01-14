@@ -4,11 +4,13 @@ import java.util.SplittableRandom;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import lab8.exceptions.ThreadAmountException;
+
 public class ParallelMonteCarloPIModel {
 
 	private final int CENTER_DISTANCE = 1;
 
-	private SplittableRandom random = new SplittableRandom();
+	private final SplittableRandom random = new SplittableRandom();
 	
 	private AtomicInteger points = new AtomicInteger(0);
 	private CountDownLatch barrier;
@@ -33,10 +35,13 @@ public class ParallelMonteCarloPIModel {
 		};
 	}
 
-	public double countPI(int iterations, int threads) throws InterruptedException {
-		barrier = new CountDownLatch(threads);
-		
+	public double countPI(int iterations, int threads) throws InterruptedException, ThreadAmountException {		
+		if (threads > iterations) {
+			throw new ThreadAmountException("Specified thread amount is more than possible points to throw!");
+		}
 		int threadIterations = (int) Math.ceil(iterations / threads);
+		
+		barrier = new CountDownLatch(threads);
 		for (int i = 0; i < threads; i++) {
 			new Thread(newPointThread(threadIterations)).start();
 		}
