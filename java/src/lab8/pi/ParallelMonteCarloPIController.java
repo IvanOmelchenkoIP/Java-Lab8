@@ -2,7 +2,7 @@ package lab8.pi;
 
 public class ParallelMonteCarloPIController {
 
-	private final int ITERATIONS = 10000000;
+	private final int ITERATIONS = 1000000000;
 	
 	private ParallelMonteCarloPIModel model;
 	private ParallelMonteCarloPIView view;
